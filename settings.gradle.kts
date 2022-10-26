@@ -10,4 +10,5 @@ rootProject.name = ("ZoundAssignment")
 include(
     ":app",
     ":core:theme",
+    ":core:navigation",
 )

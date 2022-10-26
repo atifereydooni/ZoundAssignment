@@ -39,4 +39,5 @@ android {
 
 dependencies {
     implementation(project(Modules.themeModule))
+    implementation(project(Modules.navigationModule))
 }
