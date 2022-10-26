@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.zoundindustries.assignment.MainScreen
+import com.zoundindustries.main.presentation.MainScreen
 import com.zoundindustries.navigation.destinations.MainDestination
 
 

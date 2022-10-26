@@ -1,4 +1,4 @@
-package com.zoundindustries.assignment
+package com.zoundindustries.main.presentation
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme

@@ -11,4 +11,5 @@ include(
     ":app",
     ":core:theme",
     ":core:navigation",
+    ":features:main",
 )
