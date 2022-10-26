@@ -7,10 +7,13 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.zoundindustries.theme.ZoundAssignmentTheme
 
 @Composable
-fun MainScreen(){
+fun MainScreen(
+    viewModel: MainViewModel = hiltViewModel()
+) {
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colors.background
