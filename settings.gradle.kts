@@ -9,4 +9,5 @@ dependencyResolutionManagement {
 rootProject.name = ("ZoundAssignment")
 include(
     ":app",
+    ":core:theme",
 )

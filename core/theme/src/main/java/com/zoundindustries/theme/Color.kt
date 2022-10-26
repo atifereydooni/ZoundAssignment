@@ -1,4 +1,4 @@
-package com.zoundindustries.assignment.ui.theme
+package com.zoundindustries.theme
 
 import androidx.compose.ui.graphics.Color
 
