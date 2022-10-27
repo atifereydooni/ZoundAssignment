@@ -18,4 +18,9 @@ dependencies {
     implementation(Dependencies.composeSwipeRefresh)
 
     implementation(Dependencies.composeCoil)
+
+    testImplementation(Dependencies.jUnit)
+    testImplementation(Dependencies.coreTesting)
+    testImplementation(Dependencies.mockk)
+    testImplementation(Dependencies.coroutinesTest)
 }
