@@ -26,6 +26,10 @@ class MainViewModel
 
 
     private fun getCryptocurrencies() {
+        cryptocurrencyState.value =
+            cryptocurrencyState.value.copy(
+                refreshing = true
+            )
         viewModelScope.launch {
             cryptocurrencyUseCase.getCryptocurrency().onSuccess {
                 cryptocurrencyState.value =
@@ -46,10 +50,6 @@ class MainViewModel
     }
 
     fun onListRefresh() {
-        cryptocurrencyState.value =
-            cryptocurrencyState.value.copy(
-                refreshing = true
-            )
         getCryptocurrencies()
     }
 

@@ -21,6 +21,7 @@ import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.zoundindustries.main.R
 import com.zoundindustries.main.presentation.component.CryptocurrencyList
+import com.zoundindustries.main.presentation.component.LoadingView
 import com.zoundindustries.theme.*
 
 @Composable
@@ -29,31 +30,9 @@ fun MainScreen(
     onListRefresh: () -> Unit = {},
     onCurrencyChanged: (Boolean) -> Unit = {}
 ) {
-    val switchState = remember { mutableStateOf(false) }
-
     Scaffold(
         topBar = {
-            TopAppBar(
-                backgroundColor = Black,
-                content = {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Image(
-                            painter = rememberImagePainter(R.drawable.zound_logo),
-                            contentDescription = null
-                        )
-                        Text(
-                            modifier = Modifier.padding(start = margin8Dp),
-                            style = TextStyle(
-                                fontSize = font20Sp,
-                                fontFamily = FontFamily(Font(R.font.helvetica_bold_italic))
-                            ),
-                            color = White,
-                            text = "Cryptocurrency Zound"
-                        )
-                    }
-                },
-
-                )
+            Toolbar()
         }
     ) {
         Column(
@@ -61,35 +40,12 @@ fun MainScreen(
                 .fillMaxSize()
                 .background(Black),
         ) {
-            Row(
-                modifier = Modifier.padding(margin8Dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    style = MaterialTheme.typography.subtitle1,
-                    color = White,
-                    text = "USD"
-                )
-                Switch(
-                    modifier = Modifier.padding(start = margin16Dp, end = margin16Dp),
-                    checked = switchState.value,
-                    onCheckedChange = {
-                        switchState.value = it
-                        onCurrencyChanged(switchState.value)
-                    },
-                    colors = SwitchDefaults.colors(
-                        checkedThumbColor = Aqua,
-                        uncheckedThumbColor = Aqua,
-                        checkedTrackColor = Aqua,
-                        uncheckedTrackColor = Aqua,
-                    )
-                )
-                Text(
-                    style = MaterialTheme.typography.subtitle1,
-                    color = White,
-                    text = "SEK"
-                )
+            if (!viewModel.cryptocurrencyState.value.refreshing) {
+                MainContent(onCurrencyChanged)
+            } else {
+                LoadingView()
             }
+
             SwipeRefresh(
                 state = rememberSwipeRefreshState(viewModel.cryptocurrencyState.value.refreshing),
                 onRefresh = { onListRefresh() },
@@ -97,5 +53,66 @@ fun MainScreen(
                 CryptocurrencyList(state = viewModel.cryptocurrencyState.value)
             }
         }
+    }
+
+}
+
+@Composable
+fun Toolbar() {
+    TopAppBar(
+        backgroundColor = Black,
+        content = {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                Image(
+                    painter = rememberImagePainter(R.drawable.zound_logo),
+                    contentDescription = null
+                )
+                Text(
+                    modifier = Modifier.padding(start = margin8Dp),
+                    style = TextStyle(
+                        fontSize = font20Sp,
+                        fontFamily = FontFamily(Font(R.font.helvetica_bold_italic))
+                    ),
+                    color = White,
+                    text = "Cryptocurrency Zound"
+                )
+            }
+        }
+    )
+}
+
+@Composable
+fun MainContent(
+    onCurrencyChanged: (Boolean) -> Unit = {}
+) {
+    val switchState = remember { mutableStateOf(false) }
+    Row(
+        modifier = Modifier.padding(margin8Dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            style = MaterialTheme.typography.subtitle1,
+            color = White,
+            text = "USD"
+        )
+        Switch(
+            modifier = Modifier.padding(start = margin16Dp, end = margin16Dp),
+            checked = switchState.value,
+            onCheckedChange = {
+                switchState.value = it
+                onCurrencyChanged(switchState.value)
+            },
+            colors = SwitchDefaults.colors(
+                checkedThumbColor = Aqua,
+                uncheckedThumbColor = Aqua,
+                checkedTrackColor = Aqua,
+                uncheckedTrackColor = Aqua,
+            )
+        )
+        Text(
+            style = MaterialTheme.typography.subtitle1,
+            color = White,
+            text = "SEK"
+        )
     }
 }
