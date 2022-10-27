@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="last_price">Last Price</string>
+    <string name="volume">Volume</string>
+    <string name="high_price">High Price</string>
+    <string name="low_price">Low Price</string>
+    <string name="bid_price">Bid Price</string>
+    <string name="ask_price">Ask Price</string>
+</resources>

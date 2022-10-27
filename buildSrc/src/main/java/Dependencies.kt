@@ -10,6 +10,8 @@ object Dependencies {
     const val accompanistNavigationAnimation =
         "com.google.accompanist:accompanist-navigation-animation:${Versions.composeAccompanist}"
     const val composeCoil = "io.coil-kt:coil-compose:${Versions.composeCoil}"
+    const val composeSwipeRefresh =
+        "com.google.accompanist:accompanist-swiperefresh:${Versions.composeAccompanist}"
 
     const val navigation = "androidx.navigation:navigation-compose:${Versions.navigation}"
     const val hiltNavigation = "androidx.hilt:hilt-navigation-compose:${Versions.hiltNavigation}"

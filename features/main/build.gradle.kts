@@ -15,5 +15,7 @@ dependencies {
     api(Dependencies.moshi)
     kapt(Dependencies.moshi_kapt)
 
+    implementation(Dependencies.composeSwipeRefresh)
+
     implementation(Dependencies.composeCoil)
 }
