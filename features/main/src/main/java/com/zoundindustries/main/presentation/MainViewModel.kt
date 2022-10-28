@@ -22,29 +22,32 @@ class MainViewModel
         mutableStateOf(CryptocurrencyState())
 
     init {
+        cryptocurrencyState.value =
+            cryptocurrencyState.value.copy(
+                loading = true
+            )
         getCryptocurrencies()
     }
 
 
     fun getCryptocurrencies() {
-        cryptocurrencyState.value =
-            cryptocurrencyState.value.copy(
-                refreshing = true
-            )
         viewModelScope.launch {
             cryptocurrencyUseCase.getCryptocurrency()
                 .collect { response ->
                     response.onSuccess {
-                        cryptocurrencyState.value =
-                            cryptocurrencyState.value.copy(
-                                CryptocurrencyList = listOf()
-                            )
+                        if (cryptocurrencyState.value.refreshing) {
+                            cryptocurrencyState.value =
+                                cryptocurrencyState.value.copy(
+                                    CryptocurrencyList = listOf()
+                                )
+                        }
                         cryptocurrencyState.value =
                             cryptocurrencyState.value.copy(
                                 CryptocurrencyList = it.filter { cryptocurrency ->
                                     cryptocurrency.quoteAsset == "usdt"
                                 },
-                                refreshing = false
+                                refreshing = false,
+                                loading = false
                             )
                     }.onFailure {
 
@@ -54,6 +57,10 @@ class MainViewModel
     }
 
     fun onListRefresh() {
+        cryptocurrencyState.value =
+            cryptocurrencyState.value.copy(
+                refreshing = true
+            )
         getCryptocurrencies()
     }
 

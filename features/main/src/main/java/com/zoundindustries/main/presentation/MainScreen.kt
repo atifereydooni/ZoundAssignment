@@ -40,7 +40,7 @@ fun MainScreen(
                 .fillMaxSize()
                 .background(Black),
         ) {
-            if (!viewModel.cryptocurrencyState.value.refreshing) {
+            if (!viewModel.cryptocurrencyState.value.loading) {
                 MainContent(onCurrencyChanged)
             } else {
                 LoadingView()
