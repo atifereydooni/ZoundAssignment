@@ -26,7 +26,7 @@ class MainViewModel
     }
 
 
-    private fun getCryptocurrencies() {
+    fun getCryptocurrencies() {
         cryptocurrencyState.value =
             cryptocurrencyState.value.copy(
                 refreshing = true

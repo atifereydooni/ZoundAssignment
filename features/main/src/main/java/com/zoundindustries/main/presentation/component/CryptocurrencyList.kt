@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import com.zoundindustries.theme.Black
 import com.zoundindustries.theme.margin10Dp
 
@@ -17,7 +18,8 @@ fun CryptocurrencyList(
     LazyColumn(
         modifier = Modifier
             .background(Black)
-            .padding(top = margin10Dp),
+            .padding(top = margin10Dp)
+            .testTag(TAG_LIST),
         verticalArrangement = Arrangement.spacedBy(margin10Dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -29,3 +31,5 @@ fun CryptocurrencyList(
         }
     }
 }
+
+const val TAG_LIST = "TAG_LIST"

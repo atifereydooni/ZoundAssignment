@@ -12,10 +12,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberImagePainter
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
@@ -26,7 +26,7 @@ import com.zoundindustries.theme.*
 
 @Composable
 fun MainScreen(
-    viewModel: MainViewModel = hiltViewModel(),
+    viewModel: MainViewModel,
     onListRefresh: () -> Unit = {},
     onCurrencyChanged: (Boolean) -> Unit = {}
 ) {
@@ -60,6 +60,7 @@ fun MainScreen(
 @Composable
 fun Toolbar() {
     TopAppBar(
+        modifier = Modifier.testTag(TAG_TOOLBAR),
         backgroundColor = Black,
         content = {
             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -91,12 +92,15 @@ fun MainContent(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
+            modifier = Modifier.testTag(TAG_SWITCH_CURRENCY_USD),
             style = MaterialTheme.typography.subtitle1,
             color = White,
             text = "USD"
         )
         Switch(
-            modifier = Modifier.padding(start = margin16Dp, end = margin16Dp),
+            modifier = Modifier
+                .padding(start = margin16Dp, end = margin16Dp)
+                .testTag(TAG_SWITCH),
             checked = switchState.value,
             onCheckedChange = {
                 switchState.value = it
@@ -110,9 +114,15 @@ fun MainContent(
             )
         )
         Text(
+            modifier = Modifier.testTag(TAG_SWITCH_CURRENCY_SEK),
             style = MaterialTheme.typography.subtitle1,
             color = White,
             text = "SEK"
         )
     }
 }
+
+const val TAG_TOOLBAR = "TAG_TOOLBAR"
+const val TAG_SWITCH = "TAG_SWITCH"
+const val TAG_SWITCH_CURRENCY_USD = "TAG_SWITCH_CURRENCY_USD"
+const val TAG_SWITCH_CURRENCY_SEK = "TAG_SWITCH_CURRENCY_SEK"

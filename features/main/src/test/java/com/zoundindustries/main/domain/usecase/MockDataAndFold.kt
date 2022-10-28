@@ -38,9 +38,9 @@ inline fun <R, reified T> Result<T>.mockSafeFold(
 fun getMockDataList(): List<CryptocurrencyResponseEntity> {
     return listOf(
         CryptocurrencyResponseEntity(
-            symbol = "xrpinr",
+            symbol = "xrpusdt",
             baseAsset = "xrp",
-            quoteAsset = "inr",
+            quoteAsset = "usdt",
             openPrice = "40.08",
             lowPrice = "39.35",
             highPrice = "40.949",

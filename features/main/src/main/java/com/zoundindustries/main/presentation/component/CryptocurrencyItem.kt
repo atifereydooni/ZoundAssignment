@@ -10,6 +10,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import coil.compose.rememberImagePainter
 import com.zoundindustries.main.R
@@ -33,6 +34,7 @@ fun CryptocurrencyItem(
         modifier = Modifier
             .padding(start = margin10Dp, end = margin10Dp)
             .fillMaxWidth()
+            .testTag(cryptocurrencyResponseEntity.symbol!!)
     ) {
         Column(
             modifier = Modifier
@@ -93,14 +95,22 @@ fun CryptocurrencyItemPart1(
             )
 
             Text(
+                modifier = Modifier.testTag(
+                    if (state.currencyState == CurrencyState.USD) {
+                        cryptocurrencyResponseEntity.lastPrice.toString()
+                    } else {
+                        cryptocurrencyResponseEntity.lastPrice!!.toFloat().changeCurrency()
+                            .toString()
+                    }
+                ),
                 style = MaterialTheme.typography.subtitle2,
                 color = Aqua,
                 text = if (state.currencyState == CurrencyState.USD) {
                     "$${cryptocurrencyResponseEntity.lastPrice.toString()}"
                 } else {
-                    "${
+                    "SEK ${
                         cryptocurrencyResponseEntity.lastPrice!!.toFloat().changeCurrency()
-                    } SEK"
+                    }"
                 }
             )
         }
@@ -149,10 +159,10 @@ fun CryptocurrencyItemPart2(
                 text = if (state.currencyState == CurrencyState.USD) {
                     "$${cryptocurrencyResponseEntity.highPrice.toString()}"
                 } else {
-                    "${
+                    "SEK ${
                         cryptocurrencyResponseEntity.highPrice!!.toFloat()
                             .changeCurrency()
-                    } SEK"
+                    }"
                 }
             )
         }
@@ -169,10 +179,10 @@ fun CryptocurrencyItemPart2(
                 text = if (state.currencyState == CurrencyState.USD) {
                     "$${cryptocurrencyResponseEntity.lowPrice.toString()}"
                 } else {
-                    "${
+                    "SEK ${
                         cryptocurrencyResponseEntity.lowPrice!!.toFloat()
                             .changeCurrency()
-                    } SEK"
+                    }"
                 }
             )
         }
@@ -208,10 +218,10 @@ fun CryptocurrencyItemPart3(
                 text = if (state.currencyState == CurrencyState.USD) {
                     "$${cryptocurrencyResponseEntity.bidPrice.toString()}"
                 } else {
-                    "${
+                    "SEK ${
                         cryptocurrencyResponseEntity.bidPrice!!.toFloat()
                             .changeCurrency()
-                    } SEK"
+                    }"
                 }
             )
         }
@@ -228,10 +238,10 @@ fun CryptocurrencyItemPart3(
                 text = if (state.currencyState == CurrencyState.USD) {
                     "$${cryptocurrencyResponseEntity.askPrice.toString()}"
                 } else {
-                    "${
+                    "SEK ${
                         cryptocurrencyResponseEntity.askPrice!!.toFloat()
                             .changeCurrency()
-                    } SEK"
+                    }"
                 }
             )
         }

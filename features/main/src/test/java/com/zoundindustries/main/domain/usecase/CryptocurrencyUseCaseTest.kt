@@ -1,12 +1,9 @@
-package com.zoundindustries.main
+package com.zoundindustries.main.domain.usecase
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.zoundindustries.main.data.CryptocurrencyRepositoryImpl
 import com.zoundindustries.main.data.datasource.CryptocurrencyRemoteDatasource
 import com.zoundindustries.main.domain.repo.CryptocurrencyRepository
-import com.zoundindustries.main.domain.usecase.CryptocurrencyUseCase
-import com.zoundindustries.main.domain.usecase.getMockDataList
-import com.zoundindustries.main.domain.usecase.mockSafeFold
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.RelaxedMockK
@@ -89,7 +86,7 @@ class CryptocurrencyUseCaseTest {
             val result = cryptocurrencyUseCase.getCryptocurrency()
             assert(result.firstOrNull() != null)
             result.firstOrNull()!!.mockSafeFold(
-                onSuccess = { assert(it[0].symbol == "xrpinr") },
+                onSuccess = { assert(it[0].symbol == "xrpusdt") },
                 onFailure = {}
             )
 

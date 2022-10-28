@@ -6,6 +6,12 @@ plugins {
     id(Plugins.composePlugin)
 }
 
+android {
+    defaultConfig {
+        testInstrumentationRunner = "com.zoundindustries.main.TestAppJUnitRunner"
+    }
+}
+
 dependencies {
     implementation(project(Modules.themeModule))
 
@@ -23,4 +29,10 @@ dependencies {
     testImplementation(Dependencies.coreTesting)
     testImplementation(Dependencies.mockk)
     testImplementation(Dependencies.coroutinesTest)
+
+    kaptAndroidTest(Dependencies.hiltCompiler)
+    androidTestImplementation(Dependencies.hiltAndroidTest)
+    androidTestImplementation(Dependencies.jUnit)
+    androidTestImplementation(Dependencies.composeTest)
+    androidTestImplementation(Dependencies.coreTesting)
 }
