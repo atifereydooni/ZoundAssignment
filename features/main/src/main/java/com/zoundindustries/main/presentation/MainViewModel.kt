@@ -8,6 +8,7 @@ import com.zoundindustries.main.domain.usecase.CryptocurrencyUseCase
 import com.zoundindustries.main.presentation.component.CryptocurrencyState
 import com.zoundindustries.main.presentation.component.CurrencyState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -31,21 +32,24 @@ class MainViewModel
                 refreshing = true
             )
         viewModelScope.launch {
-            cryptocurrencyUseCase.getCryptocurrency().onSuccess {
-                cryptocurrencyState.value =
-                    cryptocurrencyState.value.copy(
-                        CryptocurrencyList = listOf()
-                    )
-                cryptocurrencyState.value =
-                    cryptocurrencyState.value.copy(
-                        CryptocurrencyList = it.filter { cryptocurrency ->
-                            cryptocurrency.quoteAsset == "usdt"
-                        },
-                        refreshing = false
-                    )
-            }.onFailure {
+            cryptocurrencyUseCase.getCryptocurrency()
+                .collect { response ->
+                    response.onSuccess {
+                        cryptocurrencyState.value =
+                            cryptocurrencyState.value.copy(
+                                CryptocurrencyList = listOf()
+                            )
+                        cryptocurrencyState.value =
+                            cryptocurrencyState.value.copy(
+                                CryptocurrencyList = it.filter { cryptocurrency ->
+                                    cryptocurrency.quoteAsset == "usdt"
+                                },
+                                refreshing = false
+                            )
+                    }.onFailure {
 
-            }
+                    }
+                }
         }
     }
 

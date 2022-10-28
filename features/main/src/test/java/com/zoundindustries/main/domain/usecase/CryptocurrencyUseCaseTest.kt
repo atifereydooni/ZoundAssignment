@@ -12,6 +12,7 @@ import io.mockk.coEvery
 import io.mockk.impl.annotations.RelaxedMockK
 import io.mockk.spyk
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.test.TestCoroutineDispatcher
 import kotlinx.coroutines.test.runBlockingTest
 import kotlinx.coroutines.test.setMain
@@ -48,8 +49,8 @@ class CryptocurrencyUseCaseTest {
                 repository.getCryptocurrency()
             } returns Result.success(listOf())
 
-            val result = cryptocurrencyUseCase.getCryptocurrency()
-            assert(result.isSuccess)
+            val result = cryptocurrencyUseCase.getCryptocurrency().firstOrNull()
+            assert(result!!.isSuccess)
         }
     }
 
@@ -65,8 +66,8 @@ class CryptocurrencyUseCaseTest {
             }
 
             val result = cryptocurrencyUseCase.getCryptocurrency()
-            assert(result.getOrNull() != null)
-            result.mockSafeFold(
+            assert(result.firstOrNull() != null)
+            result.firstOrNull()!!.mockSafeFold(
                 onSuccess = { assert(it.size == 1) },
                 onFailure = {}
             )
@@ -86,8 +87,8 @@ class CryptocurrencyUseCaseTest {
             }
 
             val result = cryptocurrencyUseCase.getCryptocurrency()
-            assert(result.getOrNull() != null)
-            result.mockSafeFold(
+            assert(result.firstOrNull() != null)
+            result.firstOrNull()!!.mockSafeFold(
                 onSuccess = { assert(it[0].symbol == "xrpinr") },
                 onFailure = {}
             )
